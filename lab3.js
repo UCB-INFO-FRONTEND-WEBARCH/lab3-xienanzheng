@@ -29,17 +29,15 @@ const analyticsData = [
   // ========================================
   // TODO FUNCTIONS - Students implement these
   // ========================================
-  
   /**
    * 1. Conditionals
    * Return "Good" if avgSessionDuration >= 200, otherwise "Low"
    * @param {Object} user - User object with avgSessionDuration property
    * @returns {string} "Good" or "Low"
    */
-  const getEngagementLevel = (user) => {
-    // TODO: use if/else or ternary operator
-    // Hint: Check if user.avgSessionDuration >= 200
-  };
+const getEngagementLevel = (user) => {
+    return user.avgSessionDuration >= 200 ? "Good" : "Low";
+};
   
   /**
    * 2. For Loop
@@ -47,10 +45,18 @@ const analyticsData = [
    * @param {Array} data - Array of user objects
    * @returns {string} Name of user with longest session
    */
-  const findLongestSessionUser = (data) => {
-    // TODO: use for loop
-    // Hint: Keep track of max duration and corresponding user name
-  };
+const findLongestSessionUser = (data) => {
+    let longestName = "";
+    let longestDuration = -Infinity;
+    for (let i = 0; i < data.length; i += 1) {
+      const duration = data[i].avgSessionDuration;
+      if (duration > longestDuration) {
+        longestDuration = duration;
+        longestName = data[i].name;
+      }
+    }
+    return longestName;
+};
   
   /**
    * 3. Map
@@ -58,10 +64,9 @@ const analyticsData = [
    * @param {Array} data - Array of user objects
    * @returns {Array} Array of formatted strings like "Alice: 3 sessions"
    */
-  const formatSessions = (data) => {
-    // TODO: use map
-    // Hint: Use template literal `${user.name}: ${user.totalSessions} sessions`
-  };
+const formatSessions = (data) => {
+    return data.map((user) => `${user.name}: ${user.totalSessions} sessions`);
+};
   
   /**
    * 4. Filter
@@ -69,10 +74,9 @@ const analyticsData = [
    * @param {Array} data - Array of user objects
    * @returns {Array} Array of active user names
    */
-  const getActiveUsers = (data) => {
-    // TODO: use filter + map
-    // Hint: First filter users with totalSessions >= 5, then map to get names
-  };
+const getActiveUsers = (data) => {
+    return data.filter((user) => user.totalSessions >= 5).map((user) => user.name);
+};
   
   /**
    * 5. Reduce
@@ -80,10 +84,9 @@ const analyticsData = [
    * @param {Array} data - Array of user objects
    * @returns {number} Sum of all totalSessions
    */
-  const getTotalSessions = (data) => {
-    // TODO: use reduce
-    // Hint: Accumulate user.totalSessions
-  };
+const getTotalSessions = (data) => {
+    return data.reduce((sum, user) => sum + user.totalSessions, 0);
+};
   
   // ========================================
   // UI Functions (Already implemented)
@@ -114,22 +117,22 @@ const analyticsData = [
   
   const runLongestSession = () => {
     const longest = findLongestSessionUser(analyticsData);
-    appendOutput(`\n🏆 Longest session user: ${longest}`);
+    appendOutput(`\n Longest session user: ${longest}`);
   };
   
   const runFormatSessions = () => {
     const formatted = formatSessions(analyticsData);
-    appendOutput(`\n📝 Sessions formatted: ${JSON.stringify(formatted, null, 2)}`);
+    appendOutput(`\n Sessions formatted: ${JSON.stringify(formatted, null, 2)}`);
   };
   
   const runActiveUsers = () => {
     const active = getActiveUsers(analyticsData);
-    appendOutput(`\n🔥 Active users (≥5): ${JSON.stringify(active)}`);
+    appendOutput(`\n Active users (≥5): ${JSON.stringify(active)}`);
   };
   
   const runTotalSessions = () => {
     const total = getTotalSessions(analyticsData);
-    appendOutput(`\n📊 Total sessions: ${total}`);
+    appendOutput(`\n Total sessions: ${total}`);
   };
   
   const reset = () => {
